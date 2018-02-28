@@ -1,15 +1,15 @@
 Name:           boost
-Version:        1.59.0
+Version:        1.66.0
 Release:        26
 License:        BSL-1.0
 Summary:        Useful C++ source libraries
 Url:            http://www.boost.org/
 Group:          base
-Source0:        http://downloads.sourceforge.net/boost/boost_1_59_0.tar.bz2
+Source0:        http://downloads.sourceforge.net/boost/boost_1_66_0.tar.bz2
 BuildRequires:  bzip2-dev
 BuildRequires:  libstdc++-dev
 BuildRequires:  python-core
-BuildRequires:  pkgconfig(python2)
+BuildRequires:  pkgconfig(python3)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  gmp-dev mpfr-dev
 BuildRequires:  icu4c-dev
@@ -28,10 +28,14 @@ Requires:       %{name} = %{version}-%{release}
 Useful C++ source libraries.
 
 %prep
-%setup -q -n %{name}_1_59_0
+%setup -q -n %{name}_1_66_0
 
 %build
-./bootstrap.sh --prefix=%{buildroot}/usr --libdir=%{buildroot}/usr/lib64
+./bootstrap.sh --prefix=%{buildroot}/usr --libdir=%{buildroot}/usr/lib64 --with-python=python3
+
+# add include path for python headers
+sed -i '/using python/ s|^\(.*using python : \([0-9.][0-9.]*\) .*\);$|\1: /usr/include/python\2m ;|' project-config.jam
+
 ./b2 %{?_smp_mflags} stage threading=multi link=shared
 
 %install
