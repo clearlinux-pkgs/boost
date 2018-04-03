@@ -1,0 +1,22 @@
+Adapted for the 1.66.0 dist tarball from
+
+https://github.com/jeking3/uuid/commit/c4abb78329.patch
+
+diff -ru boost_1_66_0/libs/uuid/test/Jamfile.v2 boost_1_66_0~/libs/uuid/test/Jamfile.v2
+--- boost_1_66_0/libs/uuid/test/Jamfile.v2	2017-12-13 15:56:49.000000000 -0800
++++ boost_1_66_0~/libs/uuid/test/Jamfile.v2	2018-04-03 12:21:34.851297162 -0700
+@@ -41,12 +41,12 @@
+     all_rules += [ compile compile/decl_header.cpp :
+         <define>"BOOST_UUID_TEST_HEADER=uuid.hpp"
+         <define>"BOOST_UUID_NO_TYPE_TRAITS"
+-        <dependency>../include/boost/uuid/uuid.hpp :
++        <dependency>$(BOOST_ROOT)/boost/uuid/uuid.hpp :
+             compile_uuid_no_type_traits ] ;
+     all_rules += [ compile compile/decl_header.cpp :
+         <define>"BOOST_UUID_TEST_HEADER=uuid.hpp"
+         <define>"BOOST_UUID_NO_SIMD"
+-        <dependency>../include/boost/uuid/uuid.hpp :
++        <dependency>$(BOOST_ROOT)/boost/uuid/uuid.hpp :
+             compile_uuid_no_simd ] ;
+ 
+     # ECHO All rules: $(all_rules) ;
