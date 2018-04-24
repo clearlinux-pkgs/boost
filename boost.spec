@@ -1,11 +1,11 @@
 Name:           boost
-Version:        1.66.0
-Release:        28
+Version:        1.67.0
+Release:        29
 License:        BSL-1.0
 Summary:        Useful C++ source libraries
 Url:            http://www.boost.org/
 Group:          base
-Source0:        http://downloads.sourceforge.net/boost/boost_1_66_0.tar.bz2
+Source0:        http://downloads.sourceforge.net/boost/boost_1_67_0.tar.bz2
 BuildRequires:  bzip2-dev
 BuildRequires:  libstdc++-dev
 BuildRequires:  python-core
@@ -14,7 +14,6 @@ BuildRequires:  pkgconfig(zlib)
 BuildRequires:  gmp-dev mpfr-dev
 BuildRequires:  icu4c-dev
 BuildRequires:  valgrind-dev
-Patch1:  fix-test-suite.patch
 
 
 %description
@@ -29,8 +28,7 @@ Requires:       %{name} = %{version}-%{release}
 Useful C++ source libraries.
 
 %prep
-%setup -q -n %{name}_1_66_0
-%patch1 -p1
+%setup -q -n %{name}_1_67_0
 
 %build
 ./bootstrap.sh --prefix=%{buildroot}/usr --libdir=%{buildroot}/usr/lib64 --with-python=python3
