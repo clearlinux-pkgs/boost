@@ -5,7 +5,7 @@ License:        BSL-1.0
 Summary:        Useful C++ source libraries
 Url:            http://www.boost.org/
 Group:          base
-Source0:        http://downloads.sourceforge.net/boost/boost_1_67_0.tar.bz2
+Source0:        https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.tar.bz2
 BuildRequires:  bzip2-dev
 BuildRequires:  libstdc++-dev
 BuildRequires:  python-core
