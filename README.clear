@@ -1,0 +1,2 @@
+Every time python3 is updated to a new major release (3.6, 3.7, 3.8, etc),
+boost must be rebuilt.
