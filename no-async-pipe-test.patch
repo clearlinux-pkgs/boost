@@ -1,0 +1,20 @@
+This unit test sometimes crashes or hangs.
+
+See bug report: https://github.com/boostorg/process/issues/40
+
+diff -ru boost_1_68_0/libs/process/test/async_pipe.cpp boost_1_68_0.new/libs/process/test/async_pipe.cpp
+--- boost_1_68_0/libs/process/test/async_pipe.cpp	2018-08-01 13:50:52.000000000 -0700
++++ boost_1_68_0.new/libs/process/test/async_pipe.cpp	2018-11-19 21:05:52.013767506 -0800
+@@ -64,6 +64,7 @@
+ 
+ }
+ 
++#if 0
+ BOOST_AUTO_TEST_CASE(multithreaded_async_pipe)
+ {
+     asio::io_context ioc;
+@@ -83,3 +84,4 @@
+     for (auto &t : threads)
+         t.join();
+ }
++#endif
