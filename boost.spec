@@ -23,13 +23,13 @@ Useful C++ source libraries.
 %package -n boost-dev
 Summary:        Useful C++ source libraries
 Group:          devel
-Requires:       %{name} = %{version}-%{release}
+Requires:       boost = %{version}-%{release}
 
 %description -n boost-dev
 Useful C++ source libraries.
 
 %prep
-%setup -q -n %{name}_1_68_0
+%setup -q -n boost_1_68_0
 %patch1 -p1
 
 %build
@@ -51,9 +51,9 @@ cd status
 
 
 %files
-%{_libdir}/*.so.*
+/usr/lib64/*.so.*
 
 %files -n boost-dev
-%{_libdir}/*.so
-%{_libdir}/*.a
-%{_includedir}/boost/
+/usr/lib64/*.so
+/usr/lib64/*.a
+/usr/include/boost/
