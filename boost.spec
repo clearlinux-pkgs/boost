@@ -9,6 +9,7 @@ Source0:        https://dl.bintray.com/boostorg/release/1.68.0/source/boost_1_68
 BuildRequires:  bzip2-dev
 BuildRequires:  libstdc++-dev
 BuildRequires:  python-core
+BuildRequires:  python3-dev
 BuildRequires:  pkgconfig(python3)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  gmp-dev mpfr-dev
