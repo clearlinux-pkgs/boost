@@ -1,6 +1,6 @@
 Name:           boost
 Version:        1.68.0
-Release:        39
+Release:        40
 License:        BSL-1.0
 Summary:        Useful C++ source libraries
 Url:            http://www.boost.org/
