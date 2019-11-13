@@ -1,6 +1,6 @@
 Name:           boost
 Version:        1.68.0
-Release:        49
+Release:        50
 License:        BSL-1.0
 Summary:        Useful C++ source libraries
 Url:            http://www.boost.org/
@@ -46,7 +46,7 @@ Useful C++ source libraries.
 ./bootstrap.sh --prefix=%{buildroot}/usr --libdir=%{buildroot}/usr/lib64 --with-python=python3
 
 # add include path for python headers
-sed -i '/using python/ s|^\(.*using python : \([0-9.][0-9.]*\) .*\);$|\1: /usr/include/python\2m ;|' project-config.jam
+sed -i '/using python/ s|^\(.*using python : \([0-9.][0-9.]*\) .*\);$|\1: /usr/include/python\2 ;|' project-config.jam
 
 ./b2 %{?_smp_mflags} stage threading=multi link=shared
 
@@ -82,7 +82,7 @@ cd status
 %exclude /usr/lib64/libboost_math_tr1f.so.1.68.0
 %exclude /usr/lib64/libboost_math_tr1l.so.1.68.0
 %exclude /usr/lib64/libboost_prg_exec_monitor.so.1.68.0
-%exclude /usr/lib64/libboost_python37.so.1.68.0
+%exclude /usr/lib64/libboost_python38.so.1.68.0
 %exclude /usr/lib64/libboost_random.so.1.68.0
 %exclude /usr/lib64/libboost_regex.so.1.68.0
 %exclude /usr/lib64/libboost_serialization.so.1.68.0
@@ -117,7 +117,7 @@ cd status
 /usr/lib64/libboost_math_tr1f.so.1.68.0
 /usr/lib64/libboost_math_tr1l.so.1.68.0
 /usr/lib64/libboost_prg_exec_monitor.so.1.68.0
-/usr/lib64/libboost_python37.so.1.68.0
+/usr/lib64/libboost_python38.so.1.68.0
 /usr/lib64/libboost_random.so.1.68.0
 /usr/lib64/libboost_regex.so.1.68.0
 /usr/lib64/libboost_serialization.so.1.68.0
