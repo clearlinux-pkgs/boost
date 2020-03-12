@@ -1,18 +1,20 @@
 Name:           boost
-Version:        1.68.0
-Release:        50
+Version:        1.72.0
+Release:        51
 License:        BSL-1.0
 Summary:        Useful C++ source libraries
 Url:            http://www.boost.org/
 Group:          base
-Source0:        https://dl.bintray.com/boostorg/release/1.68.0/source/boost_1_68_0.tar.bz2
+Source0:        https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.bz2
 BuildRequires:  bzip2-dev
 BuildRequires:  libstdc++-dev
-#BuildRequires:  python-core
 BuildRequires:  python3-dev
 BuildRequires:  pkgconfig(python3)
 BuildRequires:  pkgconfig(zlib)
-BuildRequires:  gmp-dev mpfr-dev
+BuildRequires:  pkgconfig(liblzma)
+BuildRequires:  pkgconfig(libzstd)
+BuildRequires:  gmp-dev
+BuildRequires:  mpfr-dev
 BuildRequires:  icu4c-dev
 BuildRequires:  valgrind-dev
 Patch1: no-async-pipe-test.patch
@@ -39,7 +41,7 @@ Requires:       boost = %{version}-%{release}
 Useful C++ source libraries.
 
 %prep
-%setup -q -n boost_1_68_0
+%setup -q -n boost_1_72_0
 %patch1 -p1
 
 %build
@@ -53,88 +55,54 @@ sed -i '/using python/ s|^\(.*using python : \([0-9.][0-9.]*\) .*\);$|\1: /usr/i
 %install
 ./b2 %{?_smp_mflags} install threading=multi link=shared
 
+# FIXME: many of these cmake files contain references to %{buildroot}, so disable until that issue is fixed
+rm -rf %{buildroot}/usr/lib64/cmake
+
 %check
 cd status
 ../b2 %{?_smp_mflags} threading=multi link=shared || :
 
-
-
-
 %files
-/usr/lib64/*.so.*
-
-%exclude /usr/lib64/libboost_atomic.so.1.68.0
-%exclude /usr/lib64/libboost_chrono.so.1.68.0
-%exclude /usr/lib64/libboost_container.so.1.68.0
-%exclude /usr/lib64/libboost_context.so.1.68.0
-%exclude /usr/lib64/libboost_contract.so.1.68.0
-%exclude /usr/lib64/libboost_coroutine.so.1.68.0
-%exclude /usr/lib64/libboost_date_time.so.1.68.0
-%exclude /usr/lib64/libboost_fiber.so.1.68.0
-%exclude /usr/lib64/libboost_graph.so.1.68.0
-%exclude /usr/lib64/libboost_locale.so.1.68.0
-%exclude /usr/lib64/libboost_log.so.1.68.0
-%exclude /usr/lib64/libboost_log_setup.so.1.68.0
-%exclude /usr/lib64/libboost_math_c99.so.1.68.0
-%exclude /usr/lib64/libboost_math_c99f.so.1.68.0
-%exclude /usr/lib64/libboost_math_c99l.so.1.68.0
-%exclude /usr/lib64/libboost_math_tr1.so.1.68.0
-%exclude /usr/lib64/libboost_math_tr1f.so.1.68.0
-%exclude /usr/lib64/libboost_math_tr1l.so.1.68.0
-%exclude /usr/lib64/libboost_prg_exec_monitor.so.1.68.0
-%exclude /usr/lib64/libboost_python38.so.1.68.0
-%exclude /usr/lib64/libboost_random.so.1.68.0
-%exclude /usr/lib64/libboost_regex.so.1.68.0
-%exclude /usr/lib64/libboost_serialization.so.1.68.0
-%exclude /usr/lib64/libboost_signals.so.1.68.0
-%exclude /usr/lib64/libboost_stacktrace_addr2line.so.1.68.0
-%exclude /usr/lib64/libboost_stacktrace_basic.so.1.68.0
-%exclude /usr/lib64/libboost_stacktrace_noop.so.1.68.0
-%exclude /usr/lib64/libboost_thread.so.1.68.0
-%exclude /usr/lib64/libboost_timer.so.1.68.0
-%exclude /usr/lib64/libboost_type_erasure.so.1.68.0
-%exclude /usr/lib64/libboost_unit_test_framework.so.1.68.0
-%exclude /usr/lib64/libboost_wave.so.1.68.0
-%exclude /usr/lib64/libboost_wserialization.so.1.68.0
+/usr/lib64/libboost_filesystem.so.*
+/usr/lib64/libboost_iostreams.so.*
+/usr/lib64/libboost_program_options.so.*
+/usr/lib64/libboost_system.so.*
 
 %files extras
-/usr/lib64/libboost_atomic.so.1.68.0
-/usr/lib64/libboost_chrono.so.1.68.0
-/usr/lib64/libboost_container.so.1.68.0
-/usr/lib64/libboost_context.so.1.68.0
-/usr/lib64/libboost_contract.so.1.68.0
-/usr/lib64/libboost_coroutine.so.1.68.0
-/usr/lib64/libboost_date_time.so.1.68.0
-/usr/lib64/libboost_fiber.so.1.68.0
-/usr/lib64/libboost_graph.so.1.68.0
-/usr/lib64/libboost_locale.so.1.68.0
-/usr/lib64/libboost_log.so.1.68.0
-/usr/lib64/libboost_log_setup.so.1.68.0
-/usr/lib64/libboost_math_c99.so.1.68.0
-/usr/lib64/libboost_math_c99f.so.1.68.0
-/usr/lib64/libboost_math_c99l.so.1.68.0
-/usr/lib64/libboost_math_tr1.so.1.68.0
-/usr/lib64/libboost_math_tr1f.so.1.68.0
-/usr/lib64/libboost_math_tr1l.so.1.68.0
-/usr/lib64/libboost_prg_exec_monitor.so.1.68.0
-/usr/lib64/libboost_python38.so.1.68.0
-/usr/lib64/libboost_random.so.1.68.0
-/usr/lib64/libboost_regex.so.1.68.0
-/usr/lib64/libboost_serialization.so.1.68.0
-/usr/lib64/libboost_signals.so.1.68.0
-/usr/lib64/libboost_stacktrace_addr2line.so.1.68.0
-/usr/lib64/libboost_stacktrace_basic.so.1.68.0
-/usr/lib64/libboost_stacktrace_noop.so.1.68.0
-/usr/lib64/libboost_thread.so.1.68.0
-/usr/lib64/libboost_timer.so.1.68.0
-/usr/lib64/libboost_type_erasure.so.1.68.0
-/usr/lib64/libboost_unit_test_framework.so.1.68.0
-/usr/lib64/libboost_wave.so.1.68.0
-/usr/lib64/libboost_wserialization.so.1.68.0
+/usr/lib64/libboost_atomic.so.*
+/usr/lib64/libboost_chrono.so.*
+/usr/lib64/libboost_container.so.*
+/usr/lib64/libboost_context.so.*
+/usr/lib64/libboost_contract.so.*
+/usr/lib64/libboost_coroutine.so.*
+/usr/lib64/libboost_date_time.so.*
+/usr/lib64/libboost_fiber.so.*
+/usr/lib64/libboost_graph.so.*
+/usr/lib64/libboost_locale.so.*
+/usr/lib64/libboost_log.so.*
+/usr/lib64/libboost_log_setup.so.*
+/usr/lib64/libboost_math_c99.so.*
+/usr/lib64/libboost_math_c99f.so.*
+/usr/lib64/libboost_math_c99l.so.*
+/usr/lib64/libboost_math_tr1.so.*
+/usr/lib64/libboost_math_tr1f.so.*
+/usr/lib64/libboost_math_tr1l.so.*
+/usr/lib64/libboost_prg_exec_monitor.so.*
+/usr/lib64/libboost_python38.so.*
+/usr/lib64/libboost_random.so.*
+/usr/lib64/libboost_regex.so.*
+/usr/lib64/libboost_serialization.so.*
+/usr/lib64/libboost_stacktrace_addr2line.so.*
+/usr/lib64/libboost_stacktrace_basic.so.*
+/usr/lib64/libboost_stacktrace_noop.so.*
+/usr/lib64/libboost_thread.so.*
+/usr/lib64/libboost_timer.so.*
+/usr/lib64/libboost_type_erasure.so.*
+/usr/lib64/libboost_unit_test_framework.so.*
+/usr/lib64/libboost_wave.so.*
+/usr/lib64/libboost_wserialization.so.*
 
-
-%files -n boost-dev
+%files dev
 /usr/lib64/*.so
 /usr/lib64/*.a
 /usr/include/boost/
-
