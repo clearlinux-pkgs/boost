@@ -18,6 +18,7 @@ BuildRequires:  mpfr-dev
 BuildRequires:  icu4c-dev
 BuildRequires:  valgrind-dev
 Patch1: no-async-pipe-test.patch
+Patch2: gcc10-compat.patch
 
 
 %description
@@ -43,6 +44,7 @@ Useful C++ source libraries.
 %prep
 %setup -q -n boost_1_73_0
 %patch1 -p1
+%patch2 -p1
 
 %build
 ./bootstrap.sh --prefix=%{buildroot}/usr --libdir=%{buildroot}/usr/lib64 --with-python=python3

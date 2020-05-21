@@ -1,0 +1,90 @@
+Sourced from upstream commits, adapted to apply to the boost tarball.
+
+https://github.com/boostorg/bimap/commit/6fba6e5de3a5d9b0675a875fdac8aad9238d6dd8
+https://github.com/boostorg/bimap/commit/83f4f27f3a3744bb27687362dc3ca73453a66090
+
+
+From 6fba6e5de3a5d9b0675a875fdac8aad9238d6dd8 Mon Sep 17 00:00:00 2001
+From: Glen Fernandes <glen.fernandes@gmail.com>
+Date: Thu, 21 May 2020 10:46:47 -0400
+Subject: [PATCH] Use boost::allocator_rebind<A, U> instead of A::template
+ rebind<U>::other
+
+---
+ boost/bimap/detail/bimap_core.hpp | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/boost/bimap/detail/bimap_core.hpp b/boost/bimap/detail/bimap_core.hpp
+index 27a8fc7..0d2ca99 100644
+--- a/boost/bimap/detail/bimap_core.hpp
++++ b/boost/bimap/detail/bimap_core.hpp
+@@ -47,6 +47,7 @@
+ 
+ #include <boost/bimap/set_of.hpp>
+ #include <boost/bimap/unconstrained_set_of.hpp>
++#include <boost/core/allocator_access.hpp>
+ 
+ namespace boost {
+ namespace bimaps {
+@@ -404,8 +405,8 @@ class bimap_core
+     <
+         relation,
+         core_indices,
+-        BOOST_DEDUCED_TYPENAME parameters::allocator::
+-            BOOST_NESTED_TEMPLATE rebind<relation>::other
++        BOOST_DEDUCED_TYPENAME boost::allocator_rebind<BOOST_DEDUCED_TYPENAME
++            parameters::allocator, relation>::type
+ 
+     > core_type;
+ 
+
+
+From 83f4f27f3a3744bb27687362dc3ca73453a66090 Mon Sep 17 00:00:00 2001
+From: Glen Fernandes <glen.fernandes@gmail.com>
+Date: Thu, 21 May 2020 10:48:19 -0400
+Subject: [PATCH] Do not use std::allocator<void>
+
+---
+ boost/bimap/detail/manage_additional_parameters.hpp   | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/boost/bimap/detail/manage_additional_parameters.hpp b/boost/bimap/detail/manage_additional_parameters.hpp
+index d95a4f0..78d89ae 100644
+--- a/boost/bimap/detail/manage_additional_parameters.hpp
++++ b/boost/bimap/detail/manage_additional_parameters.hpp
+@@ -83,7 +83,7 @@ struct manage_additional_parameters
+     struct case_NNN
+     {
+         typedef left_based set_type_of_relation;
+-        typedef std::allocator<void> allocator;
++        typedef std::allocator<char> allocator;
+         typedef ::boost::mpl::na additional_info;
+     };
+ 
+@@ -110,7 +110,7 @@ struct manage_additional_parameters
+     struct case_SNN
+     {
+         typedef AP1 set_type_of_relation;
+-        typedef std::allocator<void> allocator;
++        typedef std::allocator<char> allocator;
+         typedef ::boost::mpl::na additional_info;
+     };
+ 
+@@ -137,7 +137,7 @@ struct manage_additional_parameters
+     struct case_HNN
+     {
+         typedef left_based set_type_of_relation;
+-        typedef std::allocator<void> allocator;
++        typedef std::allocator<char> allocator;
+         typedef BOOST_DEDUCED_TYPENAME AP1::value_type additional_info;
+     };
+ 
+@@ -151,7 +151,7 @@ struct manage_additional_parameters
+     struct case_SHN
+     {
+         typedef AP1 set_type_of_relation;
+-        typedef std::allocator<void> allocator;
++        typedef std::allocator<char> allocator;
+         typedef BOOST_DEDUCED_TYPENAME AP2::value_type additional_info;
+     };
+ 
