@@ -1,11 +1,11 @@
 Name:           boost
-Version:        1.72.0
-Release:        51
+Version:        1.73.0
+Release:        52
 License:        BSL-1.0
 Summary:        Useful C++ source libraries
-Url:            http://www.boost.org/
+Url:            https://www.boost.org/
 Group:          base
-Source0:        https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.bz2
+Source0:        https://dl.bintray.com/boostorg/release/1.73.0/source/boost_1_73_0.tar.bz2
 BuildRequires:  bzip2-dev
 BuildRequires:  libstdc++-dev
 BuildRequires:  python3-dev
@@ -41,7 +41,7 @@ Requires:       boost = %{version}-%{release}
 Useful C++ source libraries.
 
 %prep
-%setup -q -n boost_1_72_0
+%setup -q -n boost_1_73_0
 %patch1 -p1
 
 %build
@@ -87,6 +87,7 @@ cd status
 /usr/lib64/libboost_math_tr1.so.*
 /usr/lib64/libboost_math_tr1f.so.*
 /usr/lib64/libboost_math_tr1l.so.*
+/usr/lib64/libboost_nowide.so.*
 /usr/lib64/libboost_prg_exec_monitor.so.*
 /usr/lib64/libboost_python38.so.*
 /usr/lib64/libboost_random.so.*
