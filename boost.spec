@@ -1,6 +1,6 @@
 Name:           boost
 Version:        1.73.0
-Release:        55
+Release:        56
 License:        BSL-1.0
 Summary:        Useful C++ source libraries
 Url:            https://www.boost.org/
@@ -50,10 +50,10 @@ Useful C++ source libraries.
 # add include path for python headers
 sed -i '/using python/ s|^\(.*using python : \([0-9.][0-9.]*\) .*\);$|\1: /usr/include/python\2 ;|' project-config.jam
 
-./b2 %{?_smp_mflags} stage threading=multi link=shared
+./b2 %{?_smp_mflags} stage threading=multi link=shared,static runtime-link=shared
 
 %install
-./b2 %{?_smp_mflags} install threading=multi link=shared
+./b2 %{?_smp_mflags} install threading=multi link=shared,static runtime-link=shared
 
 # FIXME: many of these cmake files contain references to %{buildroot}, so disable until that issue is fixed
 rm -rf %{buildroot}/usr/lib64/cmake
