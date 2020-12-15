@@ -89,7 +89,7 @@ cd status
 /usr/lib64/libboost_math_tr1l.so.*
 /usr/lib64/libboost_nowide.so.*
 /usr/lib64/libboost_prg_exec_monitor.so.*
-/usr/lib64/libboost_python38.so.*
+/usr/lib64/libboost_python39.so.*
 /usr/lib64/libboost_random.so.*
 /usr/lib64/libboost_regex.so.*
 /usr/lib64/libboost_serialization.so.*
