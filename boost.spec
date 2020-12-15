@@ -59,8 +59,8 @@ sed -i '/using python/ s|^\(.*using python : \([0-9.][0-9.]*\) .*\);$|\1: /usr/i
 rm -rf %{buildroot}/usr/lib64/cmake
 
 %check
-cd status
-../b2 %{?_smp_mflags} threading=multi link=shared || :
+#cd status
+#../b2 %{?_smp_mflags} threading=multi link=shared || :
 
 %files
 /usr/lib64/libboost_filesystem.so.*
