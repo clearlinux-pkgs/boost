@@ -1,6 +1,6 @@
 Name:           boost
 Version:        1.77.0
-Release:        62
+Release:        64
 License:        BSL-1.0
 Summary:        Useful C++ source libraries
 Url:            https://www.boost.org/
@@ -90,7 +90,7 @@ rm -rf %{buildroot}/usr/lib64/cmake
 /usr/lib64/libboost_math_tr1l.so.*
 /usr/lib64/libboost_nowide.so.*
 /usr/lib64/libboost_prg_exec_monitor.so.*
-/usr/lib64/libboost_python310.so.*
+/usr/lib64/libboost_python311.so.*
 /usr/lib64/libboost_random.so.*
 /usr/lib64/libboost_regex.so.*
 /usr/lib64/libboost_serialization.so.*
