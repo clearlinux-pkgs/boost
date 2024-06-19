@@ -1,11 +1,11 @@
 Name:           boost
-Version:        1.77.0
-Release:        66
+Version:        1.83.0
+Release:        67
 License:        BSL-1.0
 Summary:        Useful C++ source libraries
 Url:            https://www.boost.org/
 Group:          base
-Source0:        https://boostorg.jfrog.io/artifactory/main/release/1.77.0/source/boost_1_77_0.tar.bz2
+Source0:        https://boostorg.jfrog.io/artifactory/main/release/1.83.0/source/boost_1_83_0.tar.bz2
 BuildRequires:  bzip2-dev
 BuildRequires:  libstdc++-dev
 BuildRequires:  python3-dev
@@ -18,6 +18,9 @@ BuildRequires:  mpfr-dev
 BuildRequires:  icu4c-dev
 BuildRequires:  valgrind-dev
 Patch1: no-async-pipe-test.patch
+Patch2: boost-1.81.0-phoenix-multiple-definitions.patch
+Patch3: 0001-Support-fn.contains-f-where-f-is-a-function.-Fixes-4.patch
+Patch4: 0002-Remove-deprecated-inheritance-from-std-iterator.patch
 
 
 %description
@@ -41,8 +44,11 @@ Requires:       boost = %{version}-%{release}
 Useful C++ source libraries.
 
 %prep
-%setup -q -n boost_1_77_0
-%patch1 -p1
+%setup -q -n boost_1_83_0
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
 
 %build
 ./bootstrap.sh --prefix=%{buildroot}/usr --libdir=%{buildroot}/usr/lib64 --with-python=python3
@@ -101,6 +107,7 @@ rm -rf %{buildroot}/usr/lib64/cmake
 /usr/lib64/libboost_timer.so.*
 /usr/lib64/libboost_type_erasure.so.*
 /usr/lib64/libboost_unit_test_framework.so.*
+/usr/lib64/libboost_url.so.*
 /usr/lib64/libboost_wave.so.*
 /usr/lib64/libboost_wserialization.so.*
 

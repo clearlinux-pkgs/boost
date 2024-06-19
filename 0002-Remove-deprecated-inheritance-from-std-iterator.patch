@@ -1,0 +1,64 @@
+From c9b394540d85a9f584441361de0131c22cd0b839 Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Wed, 19 Jun 2024 10:03:30 -0700
+Subject: [PATCH 2/2] Remove deprecated inheritance from std::iterator
+
+Backport but "fix" paths
+
+Signed-off-by: William Douglas <william.douglas@intel.com>
+---
+ boost/numeric/ublas/detail/iterator.hpp | 24 ++++++++++++++++++------
+ 1 file changed, 18 insertions(+), 6 deletions(-)
+
+diff --git a/boost/numeric/ublas/detail/iterator.hpp b/boost/numeric/ublas/detail/iterator.hpp
+index 1723a301c..7aebf2f9f 100644
+--- a/boost/numeric/ublas/detail/iterator.hpp
++++ b/boost/numeric/ublas/detail/iterator.hpp
+@@ -107,8 +107,12 @@ namespace boost { namespace numeric { namespace ublas {
+    * via the post increment operator.
+    */
+     template<class IC, class I, class T>
+-    struct forward_iterator_base:
+-        public std::iterator<IC, T> {
++    struct forward_iterator_base {
++        typedef IC iterator_category;
++        typedef T value_type;
++        typedef std::ptrdiff_t difference_type;
++        typedef T* pointer;
++        typedef T& reference;
+         typedef I derived_iterator_type;
+         typedef T derived_value_type;
+ 
+@@ -145,8 +149,12 @@ namespace boost { namespace numeric { namespace ublas {
+    * via the post increment and post decrement operator.
+    */
+     template<class IC, class I, class T>
+-    struct bidirectional_iterator_base:
+-        public std::iterator<IC, T> {
++    struct bidirectional_iterator_base {
++        typedef IC iterator_category;
++        typedef T value_type;
++        typedef std::ptrdiff_t difference_type;
++        typedef T* pointer;
++        typedef T& reference;
+         typedef I derived_iterator_type;
+         typedef T derived_value_type;
+ 
+@@ -200,8 +208,12 @@ namespace boost { namespace numeric { namespace ublas {
+    */
+     template<class IC, class I, class T, class D = std::ptrdiff_t>
+     // ISSUE the default for D seems rather dangerous as it can easily be (silently) incorrect
+-    struct random_access_iterator_base:
+-        public std::iterator<IC, T> {
++    struct random_access_iterator_base {
++        typedef IC iterator_category;
++        typedef T value_type;
++        typedef D difference_type;
++        typedef T* pointer;
++        typedef T& reference;
+         typedef I derived_iterator_type;
+         typedef T derived_value_type;
+         typedef D derived_difference_type;
+-- 
+2.45.2
+
