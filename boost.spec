@@ -5,7 +5,7 @@ License:        BSL-1.0
 Summary:        Useful C++ source libraries
 Url:            https://www.boost.org/
 Group:          base
-Source0:        https://boostorg.jfrog.io/artifactory/main/release/1.83.0/source/boost_1_83_0.tar.bz2
+Source0:        https://archives.boost.io/release/1.83.0/source/boost_1_83_0.tar.bz2
 BuildRequires:  bzip2-dev
 BuildRequires:  libstdc++-dev
 BuildRequires:  python3-dev
@@ -61,8 +61,8 @@ sed -i '/using python/ s|^\(.*using python : \([0-9.][0-9.]*\) .*\);$|\1: /usr/i
 %install
 ./b2 %{?_smp_mflags} install threading=multi link=shared,static runtime-link=shared
 
-# FIXME: many of these cmake files contain references to %{buildroot}, so disable until that issue is fixed
-rm -rf %{buildroot}/usr/lib64/cmake
+# remove references to %{buildroot} from cmake files
+find %{buildroot}/usr/lib64/cmake -type f -print0 | xargs -0 sed -i -e 's|%{buildroot}||g'
 
 %check
 #cd status
@@ -96,7 +96,7 @@ rm -rf %{buildroot}/usr/lib64/cmake
 /usr/lib64/libboost_math_tr1l.so.*
 /usr/lib64/libboost_nowide.so.*
 /usr/lib64/libboost_prg_exec_monitor.so.*
-/usr/lib64/libboost_python312.so.*
+/usr/lib64/libboost_python3*.so.*
 /usr/lib64/libboost_random.so.*
 /usr/lib64/libboost_regex.so.*
 /usr/lib64/libboost_serialization.so.*
@@ -115,3 +115,4 @@ rm -rf %{buildroot}/usr/lib64/cmake
 /usr/lib64/*.so
 /usr/lib64/*.a
 /usr/include/boost/
+/usr/lib64/cmake/
